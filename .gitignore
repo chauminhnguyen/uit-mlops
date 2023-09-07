@@ -1,0 +1,5 @@
+.env
+.env.default
+env/
+__pycache__/
+wandb/
