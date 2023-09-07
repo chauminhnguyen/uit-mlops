@@ -60,7 +60,7 @@ def ml_pipeline():
 
         from datetime import datetime
 
-        from feature_pipeline import utils, pipeline
+        from feature import utils, pipeline
 
         logger = utils.get_logger(__name__)
 
@@ -107,7 +107,7 @@ def ml_pipeline():
         is created using the feature group version from the feature pipeline metadata.
         """
 
-        from feature_pipeline import feature_view
+        from feature import feature_view
 
         return feature_view.create(
             feature_group_version=feature_pipeline_metadata["feature_group_version"]
@@ -131,7 +131,7 @@ def ml_pipeline():
         based on the results from the create_feature_view task.
         """
 
-        from training_pipeline import hyperparameter_tuning
+        from feature import hyperparameter_tuning
 
         return hyperparameter_tuning.run(
             feature_view_version=feature_view_metadata["feature_view_version"],
@@ -155,7 +155,7 @@ def ml_pipeline():
         based on the given sweep id.
         """
 
-        from training_pipeline import best_config
+        from training import best_config
 
         best_config.upload(sweep_id=last_sweep_metadata["sweep_id"])
 
@@ -181,7 +181,7 @@ def ml_pipeline():
             metadata from the training run
         """
 
-        from training_pipeline import utils, train
+        from training import utils, train
 
         has_best_config = utils.check_if_artifact_exists("best_config")
         if has_best_config is False:
