@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from airflow.decorators import dag, task
-from airflow.models import Variable
-from airflow.operators.empty import EmptyOperator
-from airflow.utils.trigger_rule import TriggerRule
-from airflow.utils.edgemodifier import Label
+from decorators import dag, task
+from models import Variable
+from operators.empty import EmptyOperator
+from utils.trigger_rule import TriggerRule
+from utils.edgemodifier import Label
 
 
 @dag(
