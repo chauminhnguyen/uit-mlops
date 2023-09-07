@@ -16,7 +16,6 @@ from sktime.performance_metrics.forecasting import (
 )
 from sktime.utils.plotting import plot_series
 
-
 from training_pipeline import utils
 from training_pipeline.settings import SETTINGS, OUTPUT_DIR
 from training_pipeline.data import load_dataset_from_feature_store
