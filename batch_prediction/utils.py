@@ -8,7 +8,7 @@ import pandas as pd
 
 from google.cloud import storage
 
-from batch_prediction_pipeline import settings
+import settings
 
 
 def get_logger(name: str) -> logging.Logger:

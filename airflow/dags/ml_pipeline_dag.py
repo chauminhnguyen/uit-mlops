@@ -211,7 +211,7 @@ def ml_pipeline():
             feature_view_metadata: metadata containing the version of the feature store feature view version.
         """
 
-        from batch_prediction_pipeline import monitoring
+        from batch_prediction import monitoring
 
         monitoring.compute(
             feature_view_version=feature_view_metadata["feature_view_version"],
@@ -244,7 +244,7 @@ def ml_pipeline():
         """
 
         from datetime import datetime
-        from batch_prediction_pipeline import batch
+        from batch_prediction import batch
 
         start_datetime = datetime.strptime(
             feature_pipeline_metadata["export_datetime_utc_start"],
