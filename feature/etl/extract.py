@@ -18,7 +18,7 @@ def from_file(
     export_end_reference_datetime: Optional[datetime.datetime] = None,
     days_delay: int = 15,
     days_export: int = 30,
-    url: str = "https://media.githubusercontent.com/media/iusztinpaul/energy-forecasting/main/data/ConsumptionDE35Hour.csv",
+    url: str = "https://drive.google.com/drive/u/0/folders/1Dr0BvejMFV6C4b1J2oNekUw5T1XTqYhB",
     datetime_format: str = "%Y-%m-%d %H:%M",
     cache_dir: Optional[Path] = None,
 ) -> Optional[Tuple[pd.DataFrame, Dict[str, Any]]]:
@@ -69,7 +69,7 @@ def _extract_records_from_file_url(url: str, export_start: datetime.datetime, ex
         cache_dir = settings.OUTPUT_DIR / "data"
         cache_dir.mkdir(parents=True, exist_ok=True)
 
-    file_name = url.split("/")[-1]
+    file_name = 'ConsumptionDE35Hour.csv'
     file_path = cache_dir / file_name
 
     if not file_path.exists():
@@ -90,7 +90,7 @@ def _extract_records_from_file_url(url: str, export_start: datetime.datetime, ex
         logger.info(f"Successfully downloaded data to: {file_path}")
     else:
         logger.info(f"Data already downloaded at: {file_path}")
-
+    print(file_path)
     data = pd.read_csv(file_path, delimiter=";")
 
     records = data[(data["HourUTC"] >= export_start.strftime(datetime_format)) & (data["HourUTC"] < export_end.strftime(datetime_format))]
@@ -102,7 +102,7 @@ def from_api(
     export_end_reference_datetime: Optional[datetime.datetime] = None,
     days_delay: int = 15,
     days_export: int = 30,
-    url: str = "https://api.energidataservice.dk/dataset/ConsumptionDE35Hour",
+    url: str = "https://drive.google.com/file/d/122ncDP3zrGdj1wj3wdjoNX2U4Bhd66-M/view?usp=drive_link",
     datetime_format: str = "%Y-%m-%dT%H:%M:%SZ"
 ) -> Optional[Tuple[pd.DataFrame, Dict[str, Any]]]:
     """

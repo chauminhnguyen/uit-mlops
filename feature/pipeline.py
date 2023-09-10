@@ -13,7 +13,7 @@ def run(
     export_end_reference_datetime: Optional[datetime.datetime] = None,
     days_delay: int = 15,
     days_export: int = 30,
-    url: str = "https://media.githubusercontent.com/media/iusztinpaul/energy-forecasting/main/data/ConsumptionDE35Hour.csv",
+    url: str = "https://drive.google.com/file/d/1T9wf4wzn2RpftAze8LYr-89yauDrnt1z/view",
     feature_group_version: int = 1,
 ) -> dict:
     """
@@ -56,7 +56,6 @@ def run(
     logger.info("Building validation expectation suite.")
     validation_expectation_suite = validation.build_expectation_suite()
     logger.info("Successfully built validation expectation suite.")
-
     logger.info(f"Validating data and loading it to the feature store.")
     load.to_feature_store(
         data,
