@@ -94,6 +94,7 @@ def from_best_config(
         baseline_forecaster = train_model(baseline_forecaster, y_train, X_train, fh=fh)
         _, metrics_baseline = evaluate(baseline_forecaster, y_test, X_test)
         slices = metrics_baseline.pop("slices")
+
         for k, v in metrics_baseline.items():
             logger.info(f"Baseline test {k}: {v}")
         wandb.log({"test": {"baseline": metrics_baseline}})
@@ -286,7 +287,9 @@ def compute_forecast_exogenous_variables(X_test: pd.DataFrame, fh: int):
 
     X_forecast = X_test.copy()
     X_forecast.index.set_levels(
-        X_forecast.index.levels[-1] + fh, level=-1, inplace=True
+        X_forecast.index.levels[-1] + fh, level=-1
+        # X_forecast.index.levels[-1] + fh, level=-1, inplace=True
+
     )
 
     return X_forecast

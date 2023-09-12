@@ -59,6 +59,7 @@ def load_dataset_from_feature_store(
     with init_wandb_run(
         name="train_test_split", job_type="prepare_dataset", group="dataset"
     ) as run:
+        #run.use_artifact("energy_consumption_denmark_feature_view:latest")
         run.use_artifact("energy_consumption_denmark_feature_view:latest")
 
         y_train, y_test, X_train, X_test = prepare_data(data, fh=fh)

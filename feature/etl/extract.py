@@ -68,33 +68,28 @@ def _extract_records_from_file_url(url: str, export_start: datetime.datetime, ex
     if cache_dir is None:
         cache_dir = settings.OUTPUT_DIR / "data"
         cache_dir.mkdir(parents=True, exist_ok=True)
-
-    file_name = 'ConsumptionDE35Hour.csv'
-    file_path = cache_dir / file_name
-
+    
+   # file_name = 'ConsumptionDE35Hour.csv'
+    #file_path = cache_dir / file_name
+    file_path = cache_dir / "ConsumptionDE35Hour.csv"
     if not file_path.exists():
         logger.info(f"Downloading data from GitHub: {url}")
-
         try:
             response = requests.get(url)
         except requests.exceptions.HTTPError as e:
             logger.error(
                 f"Response status = {response.status_code}. Could not download the file due to: {e}"
             )
-
             return None
     
         with file_path.open("w") as f:
             f.write(response.text)
-
         logger.info(f"Successfully downloaded data to: {file_path}")
     else:
         logger.info(f"Data already downloaded at: {file_path}")
-    print(file_path)
-    data = pd.read_csv(file_path, delimiter=";")
-
+    data = pd.read_csv(file_path, delimiter=";",encoding="utf-8")
     records = data[(data["HourUTC"] >= export_start.strftime(datetime_format)) & (data["HourUTC"] < export_end.strftime(datetime_format))]
-
+    
     return records
 
 

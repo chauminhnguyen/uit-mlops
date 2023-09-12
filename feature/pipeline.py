@@ -13,7 +13,7 @@ def run(
     export_end_reference_datetime: Optional[datetime.datetime] = None,
     days_delay: int = 15,
     days_export: int = 30,
-    url: str = "https://drive.google.com/file/d/1T9wf4wzn2RpftAze8LYr-89yauDrnt1z/view",
+    url: str = "https://github.com/chauminhnguyen/uit-mlops/blob/hoa_cns/datalink/ConsumptionDE35Hour.csv",
     feature_group_version: int = 1,
 ) -> dict:
     """

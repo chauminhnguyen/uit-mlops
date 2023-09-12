@@ -182,13 +182,22 @@ def save_for_monitoring(predictions: pd.DataFrame, start_datetime: datetime):
     cached_predictions = utils.read_blob_from(
         bucket=bucket, blob_name=f"predictions_monitoring.parquet"
     )
+
+    print(type(cached_predictions.index.levels[2]))
+    print(type(predictions.index.levels[2]))
+
     has_cached_predictions = cached_predictions is not None
     if has_cached_predictions is True:
         # Merge predictions with cached predictions.
-        cached_predictions.index = cached_predictions.index.set_levels(
-            pd.to_datetime(cached_predictions.index.levels[2], unit="h").to_period("H"),
-            level=2,
-        )
+        # cached_predictions.index = cached_predictions.index.set_levels(
+        #     pd.to_datetime(cached_predictions.index.levels[2], format='%Y-%m-%d %H:%M').to_timestamp(),
+        #     level=2,
+        # )
+        # cached_predictions.index = cached_predictions.index.set_levels(
+        #     pd.to_datetime(cached_predictions.index.levels[2], unit='h').to_period("H"),
+        #     level=2,
+        # )
+        # cached_predictions
 
         merged_predictions = predictions.merge(
             cached_predictions,
