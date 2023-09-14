@@ -1,0 +1,21 @@
+poetry config repositories.mlops-uit https://github.com/chauminhnguyen/mlops-uit
+poetry config http-basic.mlops-uit chauminhnguyen MinhChau123456
+poetry publish -r mlops-uit
+
+poetry config repositories.my-pypi http://localhost
+poetry config http-basic.my-pypi energy-forecasting minhchau123456
+
+poetry config pypi-token.mlops-uit pypi-AgEIcHlwaS5vcmcCJGUxMTU4MDk5LTgyN2EtNDM4OC05YzM5LWZlMGY3NTUxMzJhMQACKlszLCI2Y2UzMjFjOS1iMzk4LTQxYTMtYmRkMi01YTZhYzlmM2FjMTciXQAABiBXuciW7bZgoBNYAzIb3_3l8laNxTXqrWB-HmEz0_IcHw
+
+
+Ref: https://www.digitalocean.com/community/tutorials/how-to-publish-python-packages-to-pypi-using-poetry-on-ubuntu-22-04
+
+
+pip install "apache-airflow[celery]==2.7.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.1/constraints-3.8.txt"
+
+poetry config repositories.my-pypi http://localhost
+poetry config http-basic.my-pypi energy-forecasting 123456
+
+docker compose down --volumes --rmi all
+
+docker compose --env-file .env up

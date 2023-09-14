@@ -80,6 +80,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/requirements.txt:/requirements.txt
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -120,7 +121,7 @@ services:
     <<: *airflow-common
     command: webserver
     ports:
-      - "8080:8080"
+      - "5000:8080"
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
       interval: 30s
@@ -303,9 +304,9 @@ services:
     image: pypiserver/pypiserver:v1.5.2
     restart: always
     ports:
-      - "80:8080"
+      - "1024:80"
     volumes:
-      - ~/.htpasswd:/data/.htpasswd
+      - ${AIRFLOW_PROJ_DIR:-.}/.htpasswd:/data/.htpasswd
     command:
       - run
       - -P

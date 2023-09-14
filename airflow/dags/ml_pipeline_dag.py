@@ -1,16 +1,16 @@
 from datetime import datetime
 
-from decorators import dag, task
-from models import Variable
-from operators.empty import EmptyOperator
-from utils.trigger_rule import TriggerRule
-from utils.edgemodifier import Label
-
+from airflow.decorators import dag, task
+from airflow.models import Variable
+from airflow.operators.empty import EmptyOperator
+from airflow.utils.trigger_rule import TriggerRule
+from airflow.utils.edgemodifier import Label
+    
 
 @dag(
     dag_id="ml_pipeline",
     schedule="@hourly",
-    start_date=datetime(2023, 4, 14),
+    start_date=datetime.now(),
     catchup=False,
     tags=["feature-engineering", "model-training", "batch-prediction"],
     max_active_runs=1,
@@ -21,9 +21,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "feature_pipeline",
+            "mlops_feature_pipeline",
         ],
-        python_version="3.9",
+        python_version="3.10",
         multiple_outputs=True,
         system_site_packages=True,
     )
@@ -60,7 +60,7 @@ def ml_pipeline():
 
         from datetime import datetime
 
-        from feature import utils, pipeline
+        from mlops_feature import utils, pipeline
 
         logger = utils.get_logger(__name__)
 
@@ -95,9 +95,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "feature_pipeline",
+            "mlops_feature_pipeline",
         ],
-        python_version="3.9",
+        python_version="3.10",
         multiple_outputs=True,
         system_site_packages=False,
     )
@@ -107,10 +107,10 @@ def ml_pipeline():
         is created using the feature group version from the feature pipeline metadata.
         """
 
-        from feature import feature_view
+        from mlops_feature import feature_view
 
         return feature_view.create(
-            feature_group_version=feature_pipeline_metadata["feature_group_version"]
+            feature_group_version=feature_pipeline_metadata["feature_group_version"].resolve()
         )
 
     @task.virtualenv(
@@ -118,9 +118,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "training_pipeline",
+            "mlops_training_pipeline",
         ],
-        python_version="3.9",
+        python_version="3.10",
         multiple_outputs=True,
         system_site_packages=False,
     )
@@ -131,11 +131,11 @@ def ml_pipeline():
         based on the results from the create_feature_view task.
         """
 
-        from feature import hyperparameter_tuning
+        from mlops_feature import hyperparameter_tuning
 
         return hyperparameter_tuning.run(
-            feature_view_version=feature_view_metadata["feature_view_version"],
-            training_dataset_version=feature_view_metadata["training_dataset_version"],
+            feature_view_version=feature_view_metadata["feature_view_version"].resolve(),
+            training_dataset_version=feature_view_metadata["training_dataset_version"].resolve(),
         )
 
     @task.virtualenv(
@@ -143,9 +143,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "training_pipeline",
+            "mlops_training",
         ],
-        python_version="3.9",
+        python_version="3.10",
         multiple_outputs=False,
         system_site_packages=False,
     )
@@ -155,7 +155,7 @@ def ml_pipeline():
         based on the given sweep id.
         """
 
-        from training import best_config
+        from mlops_training import best_config
 
         best_config.upload(sweep_id=last_sweep_metadata["sweep_id"])
 
@@ -164,9 +164,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "training_pipeline",
+            "mlops-training",
         ],
-        python_version="3.9",
+        python_version="3.10",
         multiple_outputs=True,
         system_site_packages=False,
         trigger_rule=TriggerRule.ALL_DONE,
@@ -181,7 +181,7 @@ def ml_pipeline():
             metadata from the training run
         """
 
-        from training import utils, train
+        from mlops_training import utils, train
 
         has_best_config = utils.check_if_artifact_exists("best_config")
         if has_best_config is False:
@@ -199,9 +199,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "batch_prediction_pipeline",
+            "mlops_batch_prediction",
         ],
-        python_version="3.9",
+        python_version="3.10",
         system_site_packages=False,
     )
     def compute_monitoring(feature_view_metadata: dict):
@@ -211,7 +211,7 @@ def ml_pipeline():
             feature_view_metadata: metadata containing the version of the feature store feature view version.
         """
 
-        from batch_prediction import monitoring
+        from mlops_batch_prediction import monitoring
 
         monitoring.compute(
             feature_view_version=feature_view_metadata["feature_view_version"],
@@ -222,9 +222,9 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "batch_prediction_pipeline",
+            "mlops_batch_prediction",
         ],
-        python_version="3.9",
+        python_version="3.10",
         system_site_packages=False,
     )
     def batch_predict(
@@ -244,7 +244,7 @@ def ml_pipeline():
         """
 
         from datetime import datetime
-        from batch_prediction import batch
+        from mlops_batch_prediction import batch
 
         start_datetime = datetime.strptime(
             feature_pipeline_metadata["export_datetime_utc_start"],
@@ -339,5 +339,6 @@ def ml_pipeline():
         >> batch_predict_step
     )
 
-
-ml_pipeline()
+# if __name__ == "__main__":
+ml_pipeline_dag = ml_pipeline()
+    
