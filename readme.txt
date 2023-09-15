@@ -1,3 +1,5 @@
+Based on https://github.com/iusztinpaul/energy-forecasting
+
 Start Docker
 Change directory to airflow/
 Run 
