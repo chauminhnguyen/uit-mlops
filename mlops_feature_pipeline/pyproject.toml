@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mlops_feature_pipeline"
-version = "0.2.0"
+version = "0.3.0"
 description = ""
 authors = ["CryLake <minhchauss123456@gmail.com>"]
 packages = [{include = "mlops_feature"}]

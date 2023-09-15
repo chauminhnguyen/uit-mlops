@@ -4,7 +4,7 @@ from typing import Optional
 import fire
 import hopsworks
 
-import utils
+from . import utils
 from . import settings
 import hsfs
 

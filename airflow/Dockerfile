@@ -10,4 +10,5 @@ RUN apt-get install -y python3-dev build-essential
 RUN pip3 install mlops_batch_prediction_pipeline
 RUN pip3 install mlops_training_pipeline
 RUN pip3 install mlops_feature_pipeline
+
 USER ${CURRENT_USER}

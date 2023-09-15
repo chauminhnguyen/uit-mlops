@@ -110,7 +110,7 @@ def ml_pipeline():
         from mlops_feature import feature_view
 
         return feature_view.create(
-            feature_group_version=feature_pipeline_metadata["feature_group_version"].resolve()
+            feature_group_version=feature_pipeline_metadata["feature_group_version"]
         )
 
     @task.virtualenv(
@@ -134,8 +134,8 @@ def ml_pipeline():
         from mlops_feature import hyperparameter_tuning
 
         return hyperparameter_tuning.run(
-            feature_view_version=feature_view_metadata["feature_view_version"].resolve(),
-            training_dataset_version=feature_view_metadata["training_dataset_version"].resolve(),
+            feature_view_version=feature_view_metadata["feature_view_version"],
+            training_dataset_version=feature_view_metadata["training_dataset_version"],
         )
 
     @task.virtualenv(
@@ -164,7 +164,7 @@ def ml_pipeline():
         requirements=[
             "--trusted-host 172.17.0.1",
             "--extra-index-url http://172.17.0.1",
-            "mlops-training",
+            "mlops_training",
         ],
         python_version="3.10",
         multiple_outputs=True,
@@ -284,8 +284,12 @@ def ml_pipeline():
     days_export = int(Variable.get("ml_pipeline_days_export", default_var=30))
     url = Variable.get(
         "ml_pipeline_url",
-        default_var="https://media.githubusercontent.com/media/iusztinpaul/energy-forecasting/main/data/ConsumptionDE35Hour.csv",
+        default_var="https://raw.githubusercontent.com/chauminhnguyen/uit-mlops/hoa_cns/datalink/ConsumptionDE35Hour.csv",
     )
+    # url = Variable.get(
+    #     "ml_pipeline_url",
+    #     default_var="https://media.githubusercontent.com/media/iusztinpaul/energy-forecasting/main/data/ConsumptionDE35Hour.csv",
+    # )
     feature_group_version = int(
         Variable.get("ml_pipeline_feature_group_version", default_var=1)
     )

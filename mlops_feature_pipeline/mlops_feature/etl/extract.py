@@ -45,7 +45,7 @@ def from_file(
     Returns:
           A tuple of a Pandas DataFrame containing the exported data and a dictionary of metadata.
     """
-
+    
     export_start, export_end = _compute_extraction_window(export_end_reference_datetime=export_end_reference_datetime, days_delay=days_delay, days_export=days_export)
     records = _extract_records_from_file_url(url=url, export_start=export_start, export_end=export_end, datetime_format=datetime_format, cache_dir=cache_dir)
     
