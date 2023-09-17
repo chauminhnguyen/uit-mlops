@@ -10,4 +10,5 @@ docker compose --env-file .env up --build -d
 
 # Run docker to deploy app
 
+Change directory to project/
 docker compose -f deploy/app-docker-compose.yml --project-directory . up --build
