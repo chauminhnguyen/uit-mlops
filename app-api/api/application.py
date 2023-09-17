@@ -4,8 +4,8 @@ import uvicorn
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.views import api_router
-from api.config import get_settings
+from .views import api_router
+from .config import get_settings
 
 
 def get_app() -> FastAPI:

@@ -4,8 +4,8 @@ from typing import Any, List
 import pandas as pd
 from fastapi import APIRouter, HTTPException
 
-from api import schemas
-from api.config import get_settings
+from . import schemas
+from .config import get_settings
 
 
 fs = gcsfs.GCSFileSystem(

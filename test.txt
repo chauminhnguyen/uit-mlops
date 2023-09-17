@@ -5,10 +5,9 @@ poetry publish -r mlops-uit
 poetry config repositories.my-pypi http://localhost
 poetry config http-basic.my-pypi energy-forecasting minhchau123456
 
-poetry config pypi-token.pypi pypi-AgEIcHlwaS5vcmcCJDk2MGQyODQzLTBhZTEtNGU4My1hYTdkLTMzZTIyZjEzNTUxYwACKlszLCI2Y2UzMjFjOS1iMzk4LTQxYTMtYmRkMi01YTZhYzlmM2FjMTciXQAABiAzKw02aeTEQ0XoeVvEUZMRgS9PB6C0OY44gGWst4RA8g
+poetry config pypi-token.pypi pypi-AgEIcHlwaS5vcmcCJDNkYzU4Y2VhLWZhNWEtNDYyYi1hZDI5LWZhNWFkZDlhODE0OQACKlszLCI2Y2UzMjFjOS1iMzk4LTQxYTMtYmRkMi01YTZhYzlmM2FjMTciXQAABiCBTk5jeOSiWOBNGKfDF0R3xFAC52SB6Bts6BCsbhRFqA
 
 Ref: https://www.digitalocean.com/community/tutorials/how-to-publish-python-packages-to-pypi-using-poetry-on-ubuntu-22-04
-
 
 pip install "apache-airflow[celery]==2.7.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.1/constraints-3.8.txt"
 
@@ -17,4 +16,10 @@ poetry config http-basic.my-pypi energy-forecasting 123456
 
 docker compose down --volumes --rmi all
 
+docker compose up airflow-init
+
 docker compose --env-file .env up --build -d
+
+
+docker compose -f deploy/app-docker-compose.yml --project-directory . up --build
+

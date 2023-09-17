@@ -1,1 +1,1 @@
-from configs import gridsearch
+from . import gridsearch

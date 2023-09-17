@@ -131,7 +131,7 @@ def ml_pipeline():
         based on the results from the create_feature_view task.
         """
 
-        from mlops_feature import hyperparameter_tuning
+        from mlops_training import hyperparameter_tuning
 
         return hyperparameter_tuning.run(
             feature_view_version=feature_view_metadata["feature_view_version"],

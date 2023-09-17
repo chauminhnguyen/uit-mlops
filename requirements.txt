@@ -9,3 +9,5 @@ matplotlib
 sktime
 lightgbm
 seaborn
+fastapi
+uvicorn

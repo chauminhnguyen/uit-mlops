@@ -2,8 +2,8 @@ import requests
 
 import streamlit as st
 
-from settings import API_URL, TITLE
-from components import build_data_plot
+from .settings import API_URL, TITLE
+from .components import build_data_plot
 
 
 st.set_page_config(page_title=TITLE)
