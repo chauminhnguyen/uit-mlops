@@ -4,7 +4,7 @@ import requests
 import pandas as pd
 import plotly.graph_objects as go
 
-from .settings import API_URL
+from settings import API_URL
 
 
 def build_data_plot(area: int, consumer_type: int):

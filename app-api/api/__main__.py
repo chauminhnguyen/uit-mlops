@@ -1,12 +1,13 @@
 import uvicorn
 
-from .config import get_settings
+from config import get_settings
 
 
 def main() -> None:
     """Entrypoint of the application."""
+    print("Starting server...")
     uvicorn.run(
-        "api.application:get_app",
+        "application:get_app",
         workers=get_settings().WORKERS_COUNT,
         host=get_settings().HOST,
         port=get_settings().PORT,

@@ -6,6 +6,7 @@ from types import FrameType
 from typing import List, Optional, cast
 
 from pydantic import AnyHttpUrl, BaseSettings
+# from pydantic_settings import BaseSettings
 
 
 class LogLevel(str, enum.Enum):  # noqa: WPS600
@@ -29,7 +30,7 @@ class Settings(BaseSettings):
 
     # General configurations.
     HOST: str = "0.0.0.0"
-    PORT: int = 8001
+    PORT: int = 8080
     LOG_LEVEL: LogLevel = LogLevel.INFO
     # - Current version of the API.
     VERSION: str = "v1"

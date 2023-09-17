@@ -19,6 +19,7 @@ RUN poetry install --no-interaction --no-root -vvv
 ADD ./app-api /app/src
 
 # Give access to run the run.sh script.
-RUN chmod +x run.sh
+# RUN chmod +x run.sh
+RUN pip install -r requirements.txt
 
-CMD ["bash", "./run.sh"]
+CMD ["python", "api"]

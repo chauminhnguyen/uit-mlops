@@ -11,3 +11,6 @@ lightgbm
 seaborn
 fastapi
 uvicorn
+pydantic
+pydantic_settings
+gcsfs
