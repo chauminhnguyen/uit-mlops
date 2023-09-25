@@ -36,12 +36,12 @@ def compute(feature_view_version: Optional[int] = None) -> None:
         )
 
         return
-    # predictions.index = predictions.index.set_levels(
-    #     pd.to_datetime(predictions.index.levels[2].to_timestamp()).to_period("H"), level=2
-    # )
     predictions.index = predictions.index.set_levels(
-        pd.to_datetime(predictions.index.levels[2], unit="h").to_period("H"), level=2
+        pd.to_datetime(predictions.index.levels[2].to_timestamp()).to_period("H"), level=2
     )
+    # predictions.index = predictions.index.set_levels(
+    #     pd.to_datetime(predictions.index.levels[2], unit="h").to_period("H"), level=2
+    # )
     logger.info("Successfully loaded old predictions.")
 
     logger.info("Connecting to the feature store...")

@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from airflow.decorators import dag, task
 from airflow.models import Variable
@@ -10,7 +10,7 @@ from airflow.utils.edgemodifier import Label
 @dag(
     dag_id="ml_pipeline",
     # schedule="@hourly",
-    schedule_interval = timedelta(hours=3)
+    schedule_interval = timedelta(hours=3),
     start_date=datetime(2023,9,23),
     catchup=False,
     tags=["feature-engineering", "model-training", "batch-prediction"],
