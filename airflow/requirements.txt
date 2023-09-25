@@ -1,3 +1,3 @@
-mlops_batch_prediction_pipeline
-mlops_training_pipeline
+mlops_batch_prediction_pipeline==0.6.0
+mlops_training_pipeline==0.6.0
 mlops_feature_pipeline

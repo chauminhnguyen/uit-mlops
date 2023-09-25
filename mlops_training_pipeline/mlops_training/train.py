@@ -100,9 +100,11 @@ def from_best_config(
         wandb.log({"test.baseline.slices": wandb.Table(dataframe=slices)})
 
         # Build & train best model.
+        logger.info("++ Debug build best model.")
         best_model = build_model(config)
+        logger.info("++ Train best model.")
         best_forecaster = train_model(best_model, y_train, X_train, fh=fh)
-
+        logger.info("++ Debug evaluate best model.")
         # Evaluate best model
         y_pred, metrics = evaluate(best_forecaster, y_test, X_test)
         slices = metrics.pop("slices")
@@ -111,6 +113,7 @@ def from_best_config(
         wandb.log({"test": {"model": metrics}})
         wandb.log({"test.model.slices": wandb.Table(dataframe=slices)})
 
+        logger.info("++ Debug rendering.")
         # Render best model on the test set.
         results = OrderedDict({"y_train": y_train, "y_test": y_test, "y_pred": y_pred})
         render(results, prefix="images_test")
@@ -118,13 +121,24 @@ def from_best_config(
         # Update best model with the test set.
         # NOTE: Method update() is not supported by LightGBM + Sktime. Instead we will retrain the model on the entire dataset.
         # best_forecaster = best_forecaster.update(y_test, X=X_test)
+        logger.info("++ Debug forecasting.")
+        # logger.info(X_train)
+        # logger.info(y_train)
+        # logger.info('==================')
+        # logger.info(X_test)
+        # logger.info(y_test)
+        # logger.info('==================')
+        # logger.info(pd.concat([y_train, y_test]).sort_index())
+        # logger.info(pd.concat([X_train, X_test]).sort_index())
         best_forecaster = train_model(
             model=best_forecaster,
             y_train=pd.concat([y_train, y_test]).sort_index(),
             X_train=pd.concat([X_train, X_test]).sort_index(),
             fh=fh,
         )
+        logger.info("++ Debug compute_forecast_exogenous_variables.")
         X_forecast = compute_forecast_exogenous_variables(X_test, fh)
+        logger.info("++ Debug forecast.")
         y_forecast = forecast(best_forecaster, X_forecast)
         logger.info(
             f"Forecasted future values for renderin between {y_test.index.get_level_values('datetime_utc').min()} and {y_test.index.get_level_values('datetime_utc').max()}."

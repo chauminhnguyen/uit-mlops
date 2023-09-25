@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import timedelta
 
 from airflow.decorators import dag, task
 from airflow.models import Variable
@@ -9,8 +9,9 @@ from airflow.utils.edgemodifier import Label
 
 @dag(
     dag_id="ml_pipeline",
-    schedule="@hourly",
-    start_date=datetime.now(),
+    # schedule="@hourly",
+    schedule_interval = timedelta(hours=3)
+    start_date=datetime(2023,9,23),
     catchup=False,
     tags=["feature-engineering", "model-training", "batch-prediction"],
     max_active_runs=1,
@@ -286,10 +287,7 @@ def ml_pipeline():
         "ml_pipeline_url",
         default_var="https://raw.githubusercontent.com/chauminhnguyen/uit-mlops/hoa_cns/datalink/ConsumptionDE35Hour.csv",
     )
-    # url = Variable.get(
-    #     "ml_pipeline_url",
-    #     default_var="https://media.githubusercontent.com/media/iusztinpaul/energy-forecasting/main/data/ConsumptionDE35Hour.csv",
-    # )
+    
     feature_group_version = int(
         Variable.get("ml_pipeline_feature_group_version", default_var=1)
     )

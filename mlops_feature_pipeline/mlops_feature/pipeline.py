@@ -13,7 +13,7 @@ def run(
     export_end_reference_datetime: Optional[datetime.datetime] = None,
     days_delay: int = 15,
     days_export: int = 30,
-    url: str = "https://media.githubusercontent.com/media/iusztinpaul/energy-forecasting/main/data/ConsumptionDE35Hour.csv",
+    url: str = "https://raw.githubusercontent.com/chauminhnguyen/uit-mlops/hoa_cns/datalink/ConsumptionDE35Hour.csv",
     feature_group_version: int = 1,
 ) -> dict:
     """
@@ -23,8 +23,7 @@ def run(
     We made a copy of the data between 2020-07-01 and 2023-06-30. Thus, there are 3 years of data to play with.
 
     Here is the link to the official obsolete dataset: https://www.energidataservice.dk/tso-electricity/ConsumptionDE35Hour
-    Here is the link to the copy of the dataset: https://github.com/iusztinpaul/energy-forecasting/tree/main/data/ConsumptionDE35Hour.csv
-
+    
     Args:
         export_end_reference_datetime: The end reference datetime of the export window. If None, the current time is used.
             Because the data is always delayed with "days_delay" days, this date is used only as a reference point.

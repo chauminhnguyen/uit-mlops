@@ -5,7 +5,7 @@ poetry publish -r mlops-uit
 poetry config repositories.my-pypi http://localhost
 poetry config http-basic.my-pypi energy-forecasting minhchau123456
 
-poetry config pypi-token.pypi pypi-AgEIcHlwaS5vcmcCJDNkYzU4Y2VhLWZhNWEtNDYyYi1hZDI5LWZhNWFkZDlhODE0OQACKlszLCI2Y2UzMjFjOS1iMzk4LTQxYTMtYmRkMi01YTZhYzlmM2FjMTciXQAABiCBTk5jeOSiWOBNGKfDF0R3xFAC52SB6Bts6BCsbhRFqA
+poetry config pypi-token.pypi pypi-AgEIcHlwaS5vcmcCJGYwMDY2MzJmLTljOTItNDAxYS04ZjljLWVhYWRmODRmMDcyOQACKlszLCI2Y2UzMjFjOS1iMzk4LTQxYTMtYmRkMi01YTZhYzlmM2FjMTciXQAABiDYXfdftcC7L9E3swkxCY3CRgjRv2SF3zUzYnMTSg1DvQ
 
 Ref: https://www.digitalocean.com/community/tutorials/how-to-publish-python-packages-to-pypi-using-poetry-on-ubuntu-22-04
 

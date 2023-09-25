@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mlops_batch_prediction_pipeline"
-version = "0.6.0"
+version = "0.7.0"
 description = ""
 authors = ["CryLake <minhchauss123456@gmail.com>"]
 packages = [{include = "mlops_batch_prediction"}]
@@ -14,8 +14,6 @@ lightgbm = "^3.3.5"
 sktime = "^0.16.1"
 google-cloud-storage = "^2.7.0"
 fire = "^0.5.0"
-mlops_training_pipeline = "^0.6.0"
-
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
