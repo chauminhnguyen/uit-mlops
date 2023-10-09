@@ -1,6 +1,7 @@
 .env
 .env.default
 env/
+env2/
 __pycache__/
 wandb/
 output/

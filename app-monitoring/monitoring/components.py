@@ -43,7 +43,7 @@ def build_metrics_plot():
         x=metrics_df["datetime_utc"],
         y=metrics_df["mape"],
         name="MAPE",
-        line=dict(color="#C4B6B6"),
+        line=dict(color="#DFD7BF"),
         hovertemplate="<br>".join(["Datetime UTC: %{x}", "MAPE: %{y} kWh"]),
     )
 
@@ -105,7 +105,7 @@ def build_data_plot(area: int, consumer_type: int):
         x=train_df["datetime_utc"],
         y=train_df["energy_consumption"],
         name="Observations",
-        line=dict(color="#C4B6B6"),
+        line=dict(color="#DFD7BF"),
         hovertemplate="<br>".join(
             ["Datetime UTC: %{x}", "Energy Consumption: %{y} kWh"]
         ),
@@ -114,7 +114,7 @@ def build_data_plot(area: int, consumer_type: int):
         x=preds_df["datetime_utc"],
         y=preds_df["energy_consumption"],
         name="Predictions",
-        line=dict(color="#FFC703"),
+        line=dict(color="#3F2305"),
         hovertemplate="<br>".join(
             ["Datetime UTC: %{x}", "Total Consumption: %{y} kWh"]
         ),
